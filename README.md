@@ -1,2 +1,6 @@
-# two-layered deep learning classification
+# 两层线性神经网络分类器
+
+这是一个针对minst的两层线性神经网络分类器。代码放在 ./model 文件目录下。
+
+训练该神经网络分类器只需要在 ./ 运行 ./model 目录下的train.py。测试该神经网络分类器只需要运行 ./model 目录下的test.py。
  
