@@ -1,9 +1,5 @@
-from time import sleep
 import numpy as np
-from sklearn.utils import shuffle
-from sympy import Order
 from DataLoader import load_images, load_labels
-import matplotlib
 import matplotlib.pyplot as plt
 import pickle
 
@@ -116,7 +112,7 @@ def train():
                 patience = 0
 
                 while 1:
-                    train_index = shuffle([i for i in range(num_train)])
+                    train_index = np.random.permutation([i for i in range(num_train)]).tolist()
                     train_images = train_images[train_index]
                     train_labels = train_labels[train_index]
                     sum_train_loss = 0
@@ -204,36 +200,12 @@ def train():
                     accuracy = accuracy_new
 
                     #隐藏层大小 100 正则化系数 0.01 学习率 0.0001
-def test():
-    test_images = load_images('dataset/t10k-images-idx3-ubyte.gz')
-    test_labels = load_labels('dataset/t10k-labels-idx1-ubyte.gz')
-    num_test = len(test_images)
-    f = open('parameters/隐藏层100, 正则化0.010000, 学习率0.000100.txt', 'rb')
-    w1,b1,w2,b2 = pickle.load(f)
-    num_right = 0
-    sum_test_loss = 0
-    for i in range(num_test):
-        a0 = test_images[i]
-        y = test_labels[i]
 
-        z1 = matmul(w1, a0) + b1
-        a1 = relu(z1)
-        z2 = matmul(w2, a1) + b2
-        a2 = relu(z2)
-
-        if np.argmax(a2) == np.argmax(y):
-            num_right += 1
-        loss = mse(a2, y)
-        sum_test_loss += loss
-
-    accuracy_new = num_right/num_test
-    print('accuracy:', accuracy_new)
 
 
 if __name__ == '__main__':
 
-    # train()
-    test()
+    train()
 
 '''(base) russell_a@daixiaohaodeMacBook-Air 两层神经网络分类器 % conda run -n base --no-capture-output --live-stream
  python /Users/russell_a/Documents/学习材料/计算机视觉/两层神经网络分类器/model/main.py
